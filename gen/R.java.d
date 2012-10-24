@@ -1,0 +1,23 @@
+/home/amiller/projects/picarus_android/PicarusUploader/gen/com/dappervision/picarus/R.java \
+ : /home/amiller/projects/picarus_android/PicarusUploader/res/drawable-xhdpi/ic_launcher.png \
+/home/amiller/projects/picarus_android/PicarusUploader/res/drawable-xhdpi/icon.png \
+/home/amiller/projects/picarus_android/PicarusUploader/res/layout/main.xml \
+/home/amiller/projects/picarus_android/PicarusUploader/res/values/strings.xml \
+/home/amiller/projects/picarus_android/PicarusUploader/res/xml/config.xml \
+/home/amiller/projects/picarus_android/PicarusUploader/res/drawable-hdpi/ic_launcher.png \
+/home/amiller/projects/picarus_android/PicarusUploader/res/drawable-hdpi/icon.png \
+/home/amiller/projects/picarus_android/PicarusUploader/res/drawable-mdpi/ic_launcher.png \
+/home/amiller/projects/picarus_android/PicarusUploader/res/drawable-mdpi/icon.png \
+/home/amiller/projects/picarus_android/PicarusUploader/res/drawable/icon.png \
+/home/amiller/projects/picarus_android/PicarusUploader/res/drawable-ldpi/ic_launcher.png \
+/home/amiller/projects/picarus_android/PicarusUploader/res/drawable-ldpi/icon.png \
+/home/amiller/projects/picarus_android/PicarusUploader/bin/res/drawable-xhdpi/ic_launcher.png \
+/home/amiller/projects/picarus_android/PicarusUploader/bin/res/drawable-xhdpi/icon.png \
+/home/amiller/projects/picarus_android/PicarusUploader/bin/res/drawable-hdpi/ic_launcher.png \
+/home/amiller/projects/picarus_android/PicarusUploader/bin/res/drawable-hdpi/icon.png \
+/home/amiller/projects/picarus_android/PicarusUploader/bin/res/drawable-mdpi/ic_launcher.png \
+/home/amiller/projects/picarus_android/PicarusUploader/bin/res/drawable-mdpi/icon.png \
+/home/amiller/projects/picarus_android/PicarusUploader/bin/res/drawable/icon.png \
+/home/amiller/projects/picarus_android/PicarusUploader/bin/res/drawable-ldpi/ic_launcher.png \
+/home/amiller/projects/picarus_android/PicarusUploader/bin/res/drawable-ldpi/icon.png \
+/home/amiller/projects/picarus_android/PicarusUploader/bin/AndroidManifest.xml \
