@@ -1,6 +1,7 @@
 PicarusUploader demonstration app
 
 Andrew Miller <amiller@dappervision.com>
+
 Brandyn White <bwhite@dappervision.com>
 
 Build Instructions:
