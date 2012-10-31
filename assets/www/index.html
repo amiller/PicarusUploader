@@ -4,84 +4,99 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <title>Hello World</title>
-    </head>
-    <body>
         <script type="text/javascript" src="cordova-2.1.0.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
+    </head>
+    <body>
 	<script>
+
 function b64toBlob(b64) {
     var byteString = atob(b64);
     var mimeString = "image/jpeg";
     
-    // write the bytes of the string to an ArrayBuffer
     var ab = new ArrayBuffer(byteString.length);
     var ia = new Uint8Array(ab);
     for (var i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
     }
-
-    // write the ArrayBuffer to a blob, and you're done
-    return new Blob([ab], "image/jpeg");
+    console.log("TEST");
+    console.log(b64.length);
+    console.log(byteString.length);
+    var bb = new WebKitBlobBuilder(); // Deprecated, see BlobBuilder
+    bb.append(ab);
+    var blob = bb.getBlob(mimeString);
+    console.log(blob.size);
+    console.log(blob);
+    return blob;
 }
 
-function upload1(fileURI, win, fail) {
-   var options = new FileUploadOptions();
-   options.fileKey="image";
-   //options.fileName=fileURI.substr(fileURI.lastIndexOf('/')+1);
-   options.fileName = "blah.jpg";
-   options.mimeType="image/jpeg";
-   options.chunkedMode = false;
+function uploadBlob(imageData) {
+    var username = "picarusuploader_mobile";
+    var password = "8awUqcH73b-wtJFVQ6N5";
+    //data = new FormData();
+    //data.append( 'image', b64toBlob(imageData));
+    //data.append('image_b64', imageData);
+
+    $.ajax({
+        url: "https://api.picar.us/see/faces",
+        type: "post",
+        data: {'image_b64': btoa(atob(imageData))},
+        beforeSend : function(xhr) {
+            var base64 = btoa(username + ":" + password);
+            xhr.setRequestHeader("Authorization", "Basic " + base64);
+        },
+	success: function(resp, text, xhr) {
+            console.log("Response = " + JSON.stringify(resp));
+            alert(JSON.stringify(resp));
+        },
+	error: function(xhr, text, error) { console.log('error' + error); }
+    });
+}
+
+function takePictureBlob() {
+    navigator.camera.getPicture(
+        uploadBlob,
+        function (message) { alert('camera error: ' + message); },
+        {destinationType : Camera.DestinationType.DATA_URL,
+         encodingType: Camera.EncodingType.JPEG,}
+    );
+}
+
+function takePictureURI() {
+
+    function upload_uri(fileURI, win, fail) {
+        var options = new FileUploadOptions();
+        options.fileKey="image";
+        options.fileName = "upload.jpg";
+        options.mimeType="image/jpeg";
+        options.chunkedMode = false;
    
-   var params = new Object();
-   options.params = params;
+        var params = new Object();
+        options.params = params;
+        
+        var ft = new FileTransfer();
+        ft.upload(fileURI, "https://api.picar.us/see/faces", win, fail, options, false);
+    }
 
-   var ft = new FileTransfer();
-   ft.upload(fileURI, "https://api.picar.us/see/faces", win, fail, options, false);
-}
-
-function takePicture() {
-   navigator.camera.getPicture(
-      function (imageURI) {
-			      upload1(imageURI,
-			function(r) {
-			 console.log("Code = " + r.responseCode);
-             console.log("Response = " + r.response);
-             console.log("Sent = " + r.bytesSent);
-             alert(r.response)
-            },
-			function(r) {console.log('error' + r.code);}
-			      );
-      }, function (message) { 
-         alert('camera error: ' + message); 
-      }, 
-      {destinationType : Camera.DestinationType.FILE_URI,
-       encodingType: Camera.EncodingType.JPEG,}
-   );
-}
-
-function upload2() {
-        imageData = "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";
-          data = new FormData();
-          data.append( 'image', b64toBlob(imageData) );
-          $.ajax({
-			 url:"https://api.picar.us/see/faces",
-			 type:"post",
-			 contentType: false,
-             processData: false,
-			 data:data,
-			 success:function(data, message) {
-			     alert('success' + message);
-			 },
-			 error:function(data, message) {
-			     alert('error' + message);
-			 },
-          });
+    navigator.camera.getPicture(
+        function (imageURI) {
+	    upload_uri(imageURI,
+		    function(r) {
+			console.log("Code = " + r.responseCode);
+                        console.log("Response = " + r.response);
+                        console.log("Sent = " + r.bytesSent);
+                        alert(r.response)
+                    },
+		    function(r) {console.log('error' + r.code);}
+		   );
+        }, function (message) { 
+            alert('camera error: ' + message); 
+        }, 
+        {destinationType : Camera.DestinationType.FILE_URI,
+         encodingType: Camera.EncodingType.JPEG,}
+    );
 }
 </script>
 
-<input type="button" value="Take Picture" style="width:200px; height:200px" onClick="takePicture();"/>
+<input type="button" value="Take Picture" style="width:200px; height:200px" onClick="takePictureBlob();"/>
 </html>
